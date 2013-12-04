@@ -1,0 +1,66 @@
+FORMAT: 1A
+HOST: http://www.google.com
+
+# Jobsite API
+Some text describing the API.
+
+## Candidate [/candidate]
+Operations on the **Candidate API**.
+
+### Candidate [POST]
++ Parameters
+    + first_name (required, string, `Joe`) ... Candidate `first name`
+    + surname (required, string, `Bloggs`) ... Candidate `surname`
+    + email_address (required, string, `joe.bloggs@inbox.com`) ... RFC822 compliant Email Address
+    + password (required, string, `pa$$w0rd`) ... Minimum of eight characters including one numeric
+    + country (required, string `UK`) ... Country of residence
+    + industry_sectors (required, array, `["legal","sales"]`) ... A maximum of four prefered `industry_sectors`
+    + dmgt_opt_out (optional, boolean, `1`) ... If not supplied, a default of 0 is used
+    + third_party_opt_out (optional, boolean, `1`) ... If not supplied, a default of 0 is used
+
++ Request (application/hal+json)
+
+        { 
+            "first_name": "Joe",
+            "surname": "Bloggs",
+            "email_address": "joe.bloggs@evenbase.com",
+            "password": "pa$$w0rd",
+            "country": "UK",
+            "industry_sectors": [ 
+                "Sales", 
+                "IT" 
+            ],
+            "dmgt_opt_out": 1,
+            "third_party_opt_out": 0
+        }
+
++ Response 201 (application/hal+json)
+
+        {
+            "_links" : {
+                "self": { "href": "/candidate" },
+            },
+            "errors" : [],
+            "resultset" : [ 
+                {
+                    "candidate" : {
+                        "token": "74da9DABOqgoipxqQDdygw"
+                    }
+                }
+            ]
+        }
+
++ Response 500 (application/hal+json)
+
+        {
+            "_links" : {
+                "self": { "href": "/candidate" },
+            },
+            "errors" : [
+                {
+                    "message": "Something went wrong"
+                }
+            ],
+            "resultset" : []
+        }
+
